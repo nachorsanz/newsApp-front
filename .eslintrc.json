@@ -1,3 +1,18 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    'next/core-web-vitals',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
+  "plugins": ['@typescript-eslint', 'prettier'],
+  "rules": {
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+    ],
+    '@typescript-eslint/no-explicit-any': 'error',
+    'prettier/prettier': PROD ? 'error' : 'off',
+  },
+  "ignorePatterns": ['**/generatedTypes.ts'],
+  
 }
