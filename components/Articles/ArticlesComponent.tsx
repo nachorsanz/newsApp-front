@@ -1,18 +1,11 @@
 import Image from "next/image";
-import { ReactElement } from "react";
+import { Article } from "../../utils/types";
 
-type Articulo = {
-  author: string;
-  title: string;
-  description: string;
-  urlToImage: string;
-};
-
-interface Props {
-  articles: Articulo[];
+interface ArticlesProps {
+  articles: Article[];
 }
 
-const Articles = ({ articles }: Props) => {
+const Articles = ({ articles }: ArticlesProps) => {
   return (
     <div>
       {articles?.map((article, index) => (
