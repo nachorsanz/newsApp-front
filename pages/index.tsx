@@ -1,33 +1,18 @@
 import type { NextPage } from "next";
 
-import { HttpLink, ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import PageLayout from "./PageLayout";
 
 import Articles from "../components/Articles/ArticlesComponent";
-
-const link = new HttpLink({
-  uri: "http://localhost:4000/",
-  // Additional options
-});
-
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: link,
-});
-
-type Articulo = {
-  author: string;
-  title: string;
-  description: string;
-  urlToImage: string;
-};
-interface Props {
-  data: any;
+import { client } from "../utils/definitions";
+import { Article } from "../utils/types";
+import { getNews } from "../utils/queries";
+interface HomeProps {
+  data: { getNews: Article[] };
   children: HTMLElement;
 }
 
-const Home: NextPage<Props> = (props) => {
-  const getNews: Articulo[] = props.data.getNews;
+const Home: NextPage<HomeProps> = (props) => {
+  const getNews: Article[] = props.data.getNews;
 
   return (
     <PageLayout title="HOME">
@@ -40,18 +25,9 @@ export default Home;
 
 export async function getServerSideProps() {
   const { data } = await client.query({
-    query: gql`
-      query {
-        getNews(topic: "iphone", date: "2022-08-22", language: "es") {
-          title
-          author
-          description
-          urlToImage
-        }
-      }
-    `,
+    query: getNews,
+    variables: { topic: "iphone", date: "2022-08-15", language: "en" },
   });
-
   return {
     props: {
       data,
