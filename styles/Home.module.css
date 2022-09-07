@@ -2,6 +2,22 @@
   padding: 0 2rem;
 }
 
+.buttonContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.pageContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
