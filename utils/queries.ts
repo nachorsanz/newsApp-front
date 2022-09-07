@@ -7,6 +7,7 @@ export const getNews = gql`
       author
       description
       urlToImage
+      url
     }
   }
 `;

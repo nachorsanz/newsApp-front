@@ -1,36 +1,18 @@
 import type { NextPage } from "next";
+import styles from "../styles/Home.module.css";
 
-import PageLayout from "./PageLayout";
+import PageLayout from "../components/PageLayout";
+import LinkAsButton from "../components/Minor/LinkAsButton";
 
-import Articles from "../components/Articles/ArticlesComponent";
-import { client } from "../utils/definitions";
-import { Article } from "../utils/types";
-import { getNews } from "../utils/queries";
-interface HomeProps {
-  data: { getNews: Article[] };
-  children: HTMLElement;
-}
-
-const Home: NextPage<HomeProps> = (props) => {
-  const getNews: Article[] = props.data.getNews;
-
+const Home: NextPage = () => {
   return (
-    <PageLayout title="HOME">
-      <Articles articles={getNews} />
+    <PageLayout title="Home">
+      <div className={styles.buttonContainer}>
+        <LinkAsButton link="news" text="News App"/>
+        <LinkAsButton link="star-wars" text="Star Wars App"/>
+      </div>
     </PageLayout>
   );
 };
 
 export default Home;
-
-export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: getNews,
-    variables: { topic: "iphone", date: "2022-08-15", language: "en" },
-  });
-  return {
-    props: {
-      data,
-    },
-  };
-}
